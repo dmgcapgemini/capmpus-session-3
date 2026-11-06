@@ -1,0 +1,53 @@
+{
+  "documents": [
+    {
+      "id": "operations-manual",
+      "file": "operations-manual.md",
+      "authority": "authoritative",
+      "ageDays": 30,
+      "facts": [{ "key": "route.change.acknowledgement", "value": "required" }]
+    },
+    {
+      "id": "dispatcher-interview",
+      "file": "dispatcher-interview.md",
+      "authority": "secondary",
+      "ageDays": 7,
+      "facts": [{ "key": "route.change.acknowledgement", "value": "not required" }]
+    },
+    {
+      "id": "customer-agreement",
+      "file": "customer-agreement.md",
+      "authority": "authoritative",
+      "ageDays": 30,
+      "facts": [{ "key": "location.LOC-SM1.window_minutes", "value": "30" }]
+    },
+    {
+      "id": "fleet-spreadsheet",
+      "file": "fleet-spreadsheet.md",
+      "authority": "secondary",
+      "ageDays": 2,
+      "facts": [{ "key": "driver.D-101.licence", "value": "C" }]
+    },
+    { "id": "driver-chat", "file": "driver-chat.md", "authority": "unverified", "ageDays": 1, "facts": [] },
+    {
+      "id": "export-2023",
+      "file": "export-2023.md",
+      "authority": "secondary",
+      "ageDays": 0,
+      "observedAt": "2023-01-01T00:00:00.000Z",
+      "facts": [{ "key": "location.LOC-SM1.window_minutes", "value": "60" }]
+    }
+  ],
+  "drivers": [
+    { "id": "D-101", "name": "Driver 101", "licence": "C1", "ageDays": 1 },
+    { "id": "D-102", "name": "Driver 102", "licence": "B", "ageDays": 1 },
+    { "id": "D-103", "name": "Driver 103", "licence": "C", "ageDays": 30 }
+  ],
+  "locations": [
+    { "id": "LOC-SM1", "customerId": "C-SM1", "customerName": "Supermarket customer 1", "windowMinutes": 60 }
+  ],
+  "vehicles": [
+    { "id": "FT-V-001", "requiredLicence": "C", "payloadKg": 8000 },
+    { "id": "FT-V-069", "requiredLicence": "B", "payloadKg": 900 }
+  ]
+}

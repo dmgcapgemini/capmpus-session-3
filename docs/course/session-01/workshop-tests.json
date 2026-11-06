@@ -1,0 +1,15 @@
+[
+  "Session 1 run API workshop session-01: completes a run with validated persisted output and replayable events",
+  "submit_analysis_result validation workshop session-01: converts an unexpected error into a generic failure",
+  "workshop session-01: read_source boundary rejects an invalid argument",
+  "workshop session-01: read_source boundary rejects an unknown source ID",
+  "workshop session-01: read_source boundary rejects the path ../../.env",
+  "workshop session-01: read_source boundary rejects the path ..\\secrets",
+  "workshop session-01: read_source boundary rejects the path /etc/passwd",
+  "workshop session-01: read_source boundary rejects the path sub/brief",
+  "workshop session-01: read_source boundary returns a declared source and records the read",
+  "workshop session-01: session registration passes Loom's instructions to the session",
+  "workshop session-01: session registration registers exactly the run's tools and makes only those available",
+  "workshop session-01: submit_analysis_result persistence rejects a second submission and keeps the stored result",
+  "workshop session-01: submit_analysis_result persistence stores a valid analysis, including a quotation that spans a line break"
+]

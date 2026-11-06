@@ -1,0 +1,43 @@
+{
+  "name": "loom",
+  "private": true,
+  "description": "Loom: an agentic engineering environment (reference implementation).",
+  "type": "module",
+  "packageManager": "bun@1.4.0",
+  "engines": {
+    "bun": "1.4.0"
+  },
+  "scripts": {
+    "preflight": "bun --env-file=.env.local tools/preflight.ts",
+    "db:migrate": "bun --env-file=.env.local tools/db-migrate.ts",
+    "db:seed": "bun --env-file=.env.local tools/db-seed.ts",
+    "dev": "bun run --parallel --filter @loom/api --filter @loom/web dev",
+    "test": "bun --bun run vitest run --project unit --project integration",
+    "test:live": "bun --bun run vitest run --project live",
+    "test:watch": "bun --bun run vitest --project unit --project integration",
+    "lint": "bun --bun run biome check .",
+    "format": "bun --bun run biome check --write .",
+    "typecheck": "bun --bun run tsc --noEmit -p tsconfig.json && bun --bun run tsc --noEmit -p apps/web/tsconfig.json",
+    "build": "bun run --filter @loom/web build",
+    "demo:workflow": "bun --env-file=.env.local tools/workflow-demo.ts",
+    "mock:fms": "bun --env-file=.env.local tools/fms-mock.ts",
+    "eval:knowledge": "bun --env-file=.env.local tools/evaluate-knowledge.ts",
+    "demo:knowledge": "bun --env-file=.env.local tools/knowledge-demo.ts"
+  },
+  "dependencies": {
+    "@loom/agent-runtime": "workspace:*",
+    "@loom/config": "workspace:*",
+    "@loom/persistence": "workspace:*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.13",
+    "@types/node": "24.13.4",
+    "typescript": "7.0.2",
+    "vitest": "5.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "trustedDependencies": []
+}

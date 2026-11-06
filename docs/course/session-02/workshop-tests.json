@@ -1,0 +1,12 @@
+[
+  "durable workflow repository workshop session-02: applies concurrent identical submissions once",
+  "durable workflow repository workshop session-02: rejects invalid workflow transitions without an audit event",
+  "durable workflow repository workshop session-02: terminal decisions cannot be reversed",
+  "workflow HTTP review workshop session-02: human review succeeds once and stale decisions conflict",
+  "workflow outer loop workshop session-02: duplicate tool calls return the same result",
+  "workflow outer loop workshop session-02: exhausts an interrupted final attempt on startup",
+  "workflow outer loop workshop session-02: graceful shutdown remains recoverable rather than a human stop",
+  "workflow outer loop workshop session-02: recovers a workflow queued before the process stopped",
+  "workflow outer loop workshop session-02: recovers committed proposals without another invocation",
+  "workflow outer loop workshop session-02: resumes an interrupted attempt after restart"
+]

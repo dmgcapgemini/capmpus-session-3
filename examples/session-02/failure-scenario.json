@@ -1,0 +1,16 @@
+{
+  "failureMessage": "Simulated provider outage before tool execution",
+  "analysis": {
+    "actors": ["Dispatcher", "Driver", "Customer service agent"],
+    "capabilities": ["Reassign routes during the day", "Notify drivers of route changes"],
+    "externalSystems": ["ERP", "Fleet management system", "HR system"],
+    "constraints": ["Use existing systems", "Support poor mobile coverage"],
+    "openQuestions": ["Who approves a reassignment?"],
+    "evidence": [
+      {
+        "sourceId": "solution-brief",
+        "quotation": "Today these route changes are made by phone, and drivers sometimes miss them."
+      }
+    ]
+  }
+}

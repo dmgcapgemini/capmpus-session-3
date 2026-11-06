@@ -1,0 +1,18 @@
+{
+  "name": "@loom/persistence",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./testing": "./src/testing.ts"
+  },
+  "dependencies": {
+    "kysely": "0.29.5",
+    "pg": "8.23.0",
+    "@loom/contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@loom/config": "workspace:*",
+    "@types/pg": "8.23.1"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@loom/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch --env-file=../../.env.local src/main.ts",
+    "start": "bun --env-file=../../.env.local src/main.ts"
+  },
+  "dependencies": {
+    "@loom/config": "workspace:*",
+    "@loom/contracts": "workspace:*",
+    "@loom/persistence": "workspace:*",
+    "fastify": "5.12.4",
+    "fastify-type-provider-zod": "7.0.0",
+    "zod": "4.6.4",
+    "@loom/agent-runtime": "workspace:*",
+    "@loom/agent-tools": "workspace:*"
+  }
+}

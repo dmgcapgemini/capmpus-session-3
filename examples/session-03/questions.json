@@ -1,0 +1,170 @@
+[
+  {
+    "id": "route-conflict",
+    "question": "Compare the operations manual and dispatcher interview: is driver acknowledgement required for route changes after departure?",
+    "expectedAdapters": ["documents"],
+    "calls": [
+      {
+        "adapter": "documents",
+        "input": {
+          "query": "route acknowledgement"
+        }
+      }
+    ],
+    "expectedConflictKeys": ["route.change.acknowledgement"],
+    "expectedEvidence": ["doc:operations-manual", "doc:dispatcher-interview"]
+  },
+  {
+    "id": "driver-licence",
+    "question": "What licence does the HR record list for driver D-101?",
+    "expectedAdapters": ["records"],
+    "calls": [
+      {
+        "adapter": "records",
+        "input": {
+          "entity": "driver",
+          "id": "D-101"
+        }
+      }
+    ],
+    "expectedEvidence": ["record:driver:D-101"]
+  },
+  {
+    "id": "licence-conflict",
+    "question": "Compare driver D-101's licence in HR and the fleet manager spreadsheet. Do they agree?",
+    "expectedAdapters": ["documents", "records"],
+    "calls": [
+      {
+        "adapter": "records",
+        "input": {
+          "entity": "driver",
+          "id": "D-101"
+        }
+      },
+      {
+        "adapter": "documents",
+        "input": {
+          "query": "\"D-101\""
+        }
+      }
+    ],
+    "expectedConflictKeys": ["driver.D-101.licence"],
+    "expectedEvidence": ["record:driver:D-101", "doc:fleet-spreadsheet"]
+  },
+  {
+    "id": "window-conflict",
+    "question": "Compare the delivery window for LOC-SM1 in the customer agreement, ERP record and old export. Which evidence is usable and where do sources disagree?",
+    "expectedAdapters": ["documents", "records"],
+    "calls": [
+      {
+        "adapter": "documents",
+        "input": {
+          "query": "delivery window"
+        }
+      },
+      {
+        "adapter": "records",
+        "input": {
+          "entity": "location",
+          "id": "LOC-SM1"
+        }
+      }
+    ],
+    "expectedConflictKeys": ["location.LOC-SM1.window_minutes"],
+    "expectedRejectedSources": ["export-2023"],
+    "expectedEvidence": ["doc:customer-agreement", "record:location:LOC-SM1"]
+  },
+  {
+    "id": "fleet-current",
+    "question": "What is the current FMS availability and compartment temperature for FT-V-001?",
+    "expectedAdapters": ["fms"],
+    "calls": [
+      {
+        "adapter": "fms",
+        "input": {
+          "vehicleId": "FT-V-001"
+        }
+      }
+    ],
+    "expectedEvidence": ["fms:FT-V-001:"]
+  },
+  {
+    "id": "fleet-stale",
+    "question": "Can the current FMS status of FT-V-001 be established from eligible observations?",
+    "expectedAdapters": ["fms"],
+    "calls": [
+      {
+        "adapter": "fms",
+        "input": {
+          "vehicleId": "FT-V-001"
+        }
+      }
+    ],
+    "fmsMode": "stale",
+    "expectedRejectedSources": ["fms"],
+    "expectedEvidence": []
+  },
+  {
+    "id": "fleet-failure",
+    "question": "What is the current FMS status of FT-V-001? If the source is unavailable, report the uncertainty.",
+    "expectedAdapters": ["fms"],
+    "calls": [
+      {
+        "adapter": "fms",
+        "input": {
+          "vehicleId": "FT-V-001"
+        }
+      }
+    ],
+    "fmsMode": "failure",
+    "expectedFailure": true,
+    "expectedEvidence": []
+  },
+  {
+    "id": "fleet-timeout",
+    "question": "What is the current FMS status of FT-V-001? If the source times out, report the uncertainty.",
+    "expectedAdapters": ["fms"],
+    "calls": [
+      {
+        "adapter": "fms",
+        "input": {
+          "vehicleId": "FT-V-001"
+        }
+      }
+    ],
+    "fmsMode": "slow",
+    "expectedFailure": true,
+    "expectedEvidence": []
+  },
+  {
+    "id": "unverified-chat",
+    "question": "Does the informal driver chat provide usable evidence of a depot access restriction?",
+    "expectedAdapters": ["documents"],
+    "calls": [
+      {
+        "adapter": "documents",
+        "input": {
+          "query": "access restriction"
+        }
+      }
+    ],
+    "expectedRejectedSources": ["driver-chat"],
+    "expectedEvidence": []
+  },
+  {
+    "id": "stale-hr",
+    "question": "What licence does the current HR record establish for D-103? Is that evidence fresh enough?",
+    "expectedAdapters": ["records"],
+    "calls": [
+      {
+        "adapter": "records",
+        "input": {
+          "entity": "driver",
+          "id": "D-103"
+        }
+      }
+    ],
+    "expectedRejectedSources": ["hr"],
+    "expectedEvidence": []
+  }
+]

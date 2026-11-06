@@ -1,0 +1,6 @@
+# Execute development tools with Bun even when their shebang names Node.
+[run]
+bun = true
+
+[install]
+exact = true

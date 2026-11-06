@@ -1,0 +1,14 @@
+{
+  "name": "@loom/agent-tools",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./testing": "./src/testing.ts"
+  },
+  "dependencies": {
+    "@github/copilot-sdk": "1.0.13",
+    "@loom/contracts": "workspace:*",
+    "zod": "4.6.4"
+  }
+}

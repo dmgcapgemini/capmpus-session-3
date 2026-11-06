@@ -1,0 +1,16 @@
+[
+  "knowledge adapters workshop session-03: finds and rejects the stale export for the natural keyword query LOC-SM1 export historical",
+  "knowledge adapters workshop session-03: finds and rejects the stale export for the natural keyword query LOC-SM1 old export",
+  "knowledge adapters workshop session-03: finds and rejects the stale export for the natural keyword query old export",
+  "knowledge adapters workshop session-03: finds and rejects the stale export for the natural keyword query old export delivery window",
+  "knowledge adapters workshop session-03: rejects stale FMS observations through the registered tool",
+  "knowledge adapters workshop session-03: retrieves joined driver, customer and vehicle records",
+  "knowledge policy workshop session-03: detects contradictions while normalizing equivalent values",
+  "knowledge policy workshop session-03: rejects stale observations for every adapter",
+  "knowledge policy workshop session-03: rejects unverified and future-dated evidence",
+  "knowledge query API workshop session-03: persists conflicts, citations and provenance through restart",
+  "knowledge tool boundaries workshop session-03: attaches conflicts even when the answer omits them",
+  "knowledge tool boundaries workshop session-03: exposes the external tool without SQL or arbitrary HTTP tools",
+  "knowledge tool boundaries workshop session-03: keeps rejected content out of the model response",
+  "knowledge tool boundaries workshop session-03: rechecks freshness at answer submission"
+]

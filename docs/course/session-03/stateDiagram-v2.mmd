@@ -1,0 +1,9 @@
+stateDiagram-v2 
+  [*] --> CREATED
+  CREATED --> ANALYSING
+  ANALYSING --> ANALYSING: retry within budget
+  ANALYSING --> PROPOSAL_READY: validated submission
+  ANALYSING --> FAILED: stopped or exhausted
+  PROPOSAL_READY --> AWAITING_REVIEW
+  AWAITING_REVIEW --> ACCEPTED: human
+  AWAITING_REVIEW --> REJECTED: human

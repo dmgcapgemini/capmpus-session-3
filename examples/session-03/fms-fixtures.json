@@ -1,0 +1,4 @@
+[
+  { "vehicleId": "FT-V-001", "status": "available", "temperatureC": 5 },
+  { "vehicleId": "FT-V-069", "status": "maintenance", "temperatureC": 9 }
+]
