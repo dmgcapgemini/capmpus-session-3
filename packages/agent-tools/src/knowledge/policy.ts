@@ -13,9 +13,46 @@ export function rejectionReason(item: KnowledgeItem, now: Date): string | null {
   return null;
 }
 const normalize = (value: string) => value.trim().toLowerCase().replace(/\s+/g, " ");
+const compareText = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
 export function detectKnowledgeConflicts(items: readonly KnowledgeItem[]): Conflict[] {
-  // TODO TALLER 3: Detecta los conflictos entre hechos de distintas fuentes.
-  void items;
-  void normalize;
-  return [];
+  const factsByKey = new Map<string, Map<string, { evidenceRefs: Set<string>; sourceIds: Set<string> }>>();
+
+  for (const item of items) {
+    for (const fact of item.facts) {
+      const values = factsByKey.get(fact.key) ?? new Map();
+      factsByKey.set(fact.key, values);
+      const value = normalize(fact.value);
+      const evidence = values.get(value) ?? { evidenceRefs: new Set<string>(), sourceIds: new Set<string>() };
+      evidence.evidenceRefs.add(item.evidenceRef);
+      evidence.sourceIds.add(item.sourceId);
+      values.set(value, evidence);
+    }
+  }
+
+  return [...factsByKey]
+    .sort(([a], [b]) => compareText(a, b))
+    .flatMap(([key, values]) => {
+      const groups = [...values.values()];
+      const hasIndependentDisagreement = groups.some((left, index) =>
+        groups
+          .slice(index + 1)
+          .some((right) =>
+            [...left.sourceIds].some((leftSource) =>
+              [...right.sourceIds].some((rightSource) => leftSource !== rightSource),
+            ),
+          ),
+      );
+      if (!hasIndependentDisagreement) return [];
+      return [
+        {
+          key,
+          values: [...values]
+            .sort(([a], [b]) => compareText(a, b))
+            .map(([value, evidence]) => ({
+              value,
+              evidenceRefs: [...evidence.evidenceRefs].sort(compareText),
+            })),
+        },
+      ];
+    });
 }

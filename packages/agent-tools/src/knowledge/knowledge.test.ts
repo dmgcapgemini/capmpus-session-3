@@ -106,6 +106,28 @@ describe("knowledge policy", () => {
       detectKnowledgeConflicts([item(), { ...other, facts: [{ key: "route.ack", value: " REQUIRED " }] }]),
     ).toEqual([]);
   });
+  it("requires independent sources and deduplicates evidence references", () => {
+    const sameSourceDisagreement = item({
+      evidenceRef: "doc:manual-copy",
+      facts: [{ key: "route.ack", value: "not required" }],
+    });
+    expect(detectKnowledgeConflicts([item(), sameSourceDisagreement])).toEqual([]);
+
+    const independentSource = item({
+      sourceId: "interview",
+      evidenceRef: "doc:interview",
+      facts: [{ key: "route.ack", value: "not required" }],
+    });
+    expect(detectKnowledgeConflicts([item(), independentSource, independentSource])).toEqual([
+      {
+        key: "route.ack",
+        values: [
+          { value: "not required", evidenceRefs: ["doc:interview"] },
+          { value: "required", evidenceRefs: ["doc:manual"] },
+        ],
+      },
+    ]);
+  });
 });
 describe("knowledge tool boundaries", () => {
   it("rejects duplicate adapter registration", () => {
