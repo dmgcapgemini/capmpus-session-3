@@ -147,6 +147,48 @@ describe("knowledge tool boundaries", () => {
       "submit_knowledge_answer",
     ]);
   });
+  it("retrieves FMS status through the shared evidence policy", async () => {
+    const fmsItem = item({
+      sourceId: "fms",
+      evidenceRef: "fms:FT-V-001:2026-09-15T10:00:00.000Z",
+      method: "fms",
+      observedAt: now.toISOString(),
+      content: "Vehicle FT-V-001 is available; compartment temperature is 5 °C.",
+      facts: [{ key: "vehicle.FT-V-001.status", value: "available" }],
+    });
+    const reports: RetrievalReport[] = [];
+    let requested: unknown;
+    const tools = createKnowledgeTools({
+      registry: new KnowledgeRegistry([
+        { id: "documents", retrieve: async () => [] },
+        { id: "records", retrieve: async () => [] },
+        {
+          id: "fms",
+          retrieve: async (input) => {
+            requested = input;
+            return [fmsItem];
+          },
+        },
+      ]),
+      now: () => now,
+      report: async (report) => {
+        reports.push(report);
+      },
+      save: async () => {},
+      log: () => {},
+    });
+    const tool = tools.tools.find((candidate) => candidate.name === "get_vehicle_status");
+    if (!tool) throw new Error("Missing FMS status tool");
+
+    const result = await callTool(tool, { vehicleId: "FT-V-001" });
+    expect(requested).toEqual({ vehicleId: "FT-V-001" });
+    expect(result).toMatchObject({ items: [fmsItem], rejected: [], error: null });
+    expect(reports[0]?.items).toEqual([fmsItem]);
+
+    const invalid = await callTool(tool, { vehicleId: "../other" });
+    expect(isFailure(invalid)).toBe(true);
+    expect(requested).toEqual({ vehicleId: "FT-V-001" });
+  });
   it("stores exact cited evidence once", async () => {
     const t = setup();
     await t.call("search_documents", { query: "acknowledgement" });

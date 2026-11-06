@@ -110,9 +110,20 @@ export function createKnowledgeTools(ctx: KnowledgeContext) {
             : failure("Supply entity driver/location/vehicle and an exact alphanumeric ID");
         }),
     }),
+    defineTool("get_vehicle_status", {
+      description:
+        "Retrieve the current availability and compartment temperature for one vehicle from the fleet management service. Supply an exact vehicle ID such as FT-V-001. The response is checked for freshness and reported with its observation time.",
+      parameters: VehicleLookup,
+      defer: "never",
+      handler: (args) =>
+        guarded("get_vehicle_status", ctx.log, async () => {
+          const parsed = VehicleLookup.safeParse(args);
+          return parsed.success
+            ? retrieve("fms", parsed.data)
+            : failure("Supply a valid vehicle ID such as FT-V-001");
+        }),
+    }),
   ] as Tool[];
-  // TODO TALLER 4: Registra la herramienta de consulta del FMS.
-  void VehicleLookup;
   tools.push(
     defineTool("submit_knowledge_answer", {
       description:
